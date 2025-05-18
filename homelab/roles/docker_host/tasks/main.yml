@@ -1,2 +1,18 @@
 ---
 # tasks file for docker_host
+- name: Install Docker on Ubuntu Host
+  include_tasks: ubuntu.yml
+  # If ubuntu distribution
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Create "docker" group
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Add "docker" group to users in "docker_host_docker_users" list
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_host_docker_users }}"

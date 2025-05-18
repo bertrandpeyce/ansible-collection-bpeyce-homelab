@@ -1,5 +1,10 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
+  become: true
   roles:
-    - docker_host
+    - role: bpeyce.homelab.docker_host
+      vars:
+        docker_host_docker_users:
+          - vagrant
+
+
