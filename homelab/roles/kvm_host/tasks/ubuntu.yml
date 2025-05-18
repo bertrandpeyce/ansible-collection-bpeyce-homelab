@@ -1,0 +1,10 @@
+# install apt package
+- name: Install necessary packages
+  apt:
+    name:
+      - bridge-utils
+      - libvirt-clients
+      - libvirt-daemon-system
+      - qemu-kvm
+      - virt-manager
+    state: present

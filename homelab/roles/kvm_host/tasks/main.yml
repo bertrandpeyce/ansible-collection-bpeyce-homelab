@@ -1,2 +1,21 @@
+
 ---
-# tasks file for kvm_host
+# Main tasks for the kvm_host role
+
+- name: Install KVM on Ubuntu Host
+  # Include tasks specific to Ubuntu systems
+  include_tasks: ubuntu.yml
+  # Execute only if the target system is running Ubuntu
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Create "libvirt" group
+  ansible.builtin.group:
+    name: libvirt
+    state: present
+
+- name: Add "libvirt" group to users in "kvm_host_libvirt_users" list
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: libvirt
+    append: true
+  loop: "{{ kvm_host_libvirt_users }}"
