@@ -1,0 +1,6 @@
+---
+# tasks file for dev
+
+- name: Install Microsoft Azure Ubuntu Dev Env
+  ansible.builtin.include_tasks: ubuntu_msoft_azure_dev.yml
+  when: is_msoft_azure_dev and (ansible_facts['distribution'] == "Ubuntu")

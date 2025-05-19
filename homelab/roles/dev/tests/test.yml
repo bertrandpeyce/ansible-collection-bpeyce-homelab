@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role: bpeyce.homelab.dev
+      vars:
+        is_msoft_azure_dev: true
