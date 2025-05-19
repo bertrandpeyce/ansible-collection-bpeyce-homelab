@@ -1,0 +1,6 @@
+---
+# tasks file for gitlab_server
+#
+- name: Install Gitlab Server Omnibus on Ubuntu
+  ansible.builtin.include_tasks: ./ubuntu_omnibus.yml
+  when: (ansible_facts['distribution'] == "Ubuntu") and (gitlab_server_installation_method == "Omnibus")

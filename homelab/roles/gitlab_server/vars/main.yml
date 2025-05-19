@@ -1,0 +1,11 @@
+---
+# vars file for gitlab_server
+gitlab_server_omnibus_ubuntu_install_script_path: "/tmp/install_gitlab_ee.deb.sh"
+gitlab_server_omnibus_ubuntu_install_script_url: "https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh"
+gitlab_server_omnibus_ubuntu_dependencies:
+  - curl
+  - openssh-server
+  - ca-certificates
+  - tzdata
+  - perl
+  - runit

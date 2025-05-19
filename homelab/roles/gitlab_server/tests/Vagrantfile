@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "generic/ubuntu2204"
+
+  config.vm.define "gitlab_server" do |gitlab_server|
+    gitlab_server.vm.network "public_network", dev: "enp0s31f6"
+    gitlab_server.vm.provider :libvirt do |libvirt| 
+      libvirt.driver = 'kvm'
+      libvirt.cpu_mode = 'host-passthrough'
+      libvirt.memory = 1024 
+      libvirt.cpus = 1
+    end
+    # doesnt prompt...
+    #gitlab_server.vm.provision :ansible do |ansible|
+    #  ansible.playbook = "test.yml"
+    #  ask_vault_pass = true
+    #end
+  end
+end

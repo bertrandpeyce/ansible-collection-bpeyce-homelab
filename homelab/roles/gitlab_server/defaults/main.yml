@@ -1,0 +1,3 @@
+---
+gitlab_server_external_url: http://localhost:8080
+gitlab_server_installation_method: "Omnibus"

@@ -1,0 +1,16 @@
+---
+- name: Provision gitlab server on test VM
+  hosts: all
+  become: true
+  vars_files: .secrets
+  vars:
+    ansible_user: vagrant
+  roles:
+    - role: bpeyce.homelab.gitlab_server
+      vars:
+        gitlab_server_installation_method: "Omnibus"
+        gitlab_server_external_url: "http://localhost:8888"
+      environment:
+        GITLAB_ROOT_EMAIL: "bertrand.peyce@gmail.com"
+        GITLAB_ROOT_PASSWORD: "{{ gitlab_server_root_passwd }}"
+
