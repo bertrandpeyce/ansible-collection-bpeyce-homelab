@@ -1,4 +1,4 @@
 *.tar.gz
 __pycache__
-.vagran_ssh_config
+.vagrant_ssh_config
 .vagrant/
