@@ -1,0 +1,10 @@
+- dev:
+  - c++:
+    - conan
+    - cmake
+    - clang tools
+  - ide:
+    - lazyvim (config on github)
+    - fzf
+    - lazygit
+    - ripgrep
