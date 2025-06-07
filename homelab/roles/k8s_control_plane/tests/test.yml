@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
-  remote_user: root
+  connection: local
   roles:
-    - k8s_control_plane
+    - role: bpeyce.homelab.k8s_control_plane
+      vars:
+        tool: kubeadm

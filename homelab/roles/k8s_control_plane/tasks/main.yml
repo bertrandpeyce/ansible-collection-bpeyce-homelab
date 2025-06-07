@@ -1,2 +1,4 @@
 ---
 # tasks file for k8s_control_plane
+tasks:
+  - name: ""

@@ -1,0 +1,19 @@
+
+Vagrant.configure("2") do |config| 
+
+config.vm.box = "generic/ubuntu2204" # Ubuntu 20.04 LTS
+
+config.vm.define "k8s-controle-plane" do |docker|
+  docker.vm.network "public_network", dev: "enp0s31f6"
+  docker.vm.provider :libvirt do |libvirt|
+    libvirt.driver = 'kvm'
+    libvirt.cpu_mode = 'host-passthrough'
+    libvirt.memory = 2048
+    libvirt.cpus = 2
+    libvirt.storage :file, size: '10G'
+  docker.vm.provision :ansible do |ansible| 
+    ansible.playbook = "test.yml"
+  end 
+  end
+end
+end
