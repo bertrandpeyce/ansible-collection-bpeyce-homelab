@@ -1,8 +1,30 @@
-- name: Update apt
+- name: "Ubuntu | Update apt"
   ansible.builtin.apt:
     update_cache: true
 
-- name: Create working temporary directory
+- name: "Ubuntu | Create working temporary directory"
   ansible.builtin.tempfile:
     state: directory
   register: working_dir
+
+- name: "Ubuntu | Update apt cache"
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: "Ubuntu | Download gitlab-runner package repository install script"
+  ansible.builtin.uri:
+    url: "{{ ubuntu_runner_install_script_url }}"
+    dest: "{{ working_dir }}/install_script.sh"
+    mode: "0755"
+
+- name: "Ubuntu | Run debian script"
+  ansible.builtin.command: "{{ working_dir }}/script.deb.sh"
+
+- name: "Ubuntu | Update apt cache"
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: "Ubuntu | Install gitlab-runner package"
+  ansible.builtin.apt:
+    name: gitlab-runner
+    state: present
