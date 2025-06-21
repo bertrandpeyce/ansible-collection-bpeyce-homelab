@@ -1,5 +1,22 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
+  become: true
   roles:
-    - firewall_config
+    - role: bpeyce.homelab.firewall_config
+      vars:
+        firewall_config_backend: "ufw"
+        firewall_config_rules:
+          incoming:
+            - rule: "allow"
+              proto: "tcp"
+              port: "22"
+              comment: "Allow incoming SSH connexion from all sources"
+          outgoing:
+            - rule: "allow"
+              proto: "tcp"
+              port: "22"
+              comment: "Allow outgoing SSH connexion to all destinations"
+            - rule: "allow"
+              port: "53"
+              proto: "udp"
+              comment: "Allow DNS queries"

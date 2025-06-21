@@ -1,2 +1,60 @@
 ---
 # tasks file for firewall_config
+- name: "Check that we have debian"
+  ansible.builtin.assert:
+    that: "ansible_os_family == 'Debian'"
+    fail_msg: "We only support debian at the moment"
+
+- name: "Check that we want to install ufw"
+  ansible.builtin.assert:
+    that: "'{{ firewall_config_backend }}' == 'ufw'"
+    fail_msg: "We only support UFW at the moment"
+
+- name: "UFW | install"
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: "UFW | Disable"
+  community.general.ufw:
+    state: disabled
+
+- name: "UFW | Set Logging"
+  community.general.ufw:
+    logging: "on"
+
+- name: "UFW | Default deny all incoming"
+  community.general.ufw:
+    default: deny
+    direction: incoming
+
+- name: "UFW | Default deny all outgoing"
+  community.general.ufw:
+    default: deny
+    direction: outgoing
+
+- name: "UFW | Add incoming rules"
+  community.general.ufw:
+    rule: "{{ item.rule }}"
+    direction: "in"
+    from_ip: "{{ item.from_ip | default(omit) }}"
+    from_port: "{{ item.from_port | default(omit) }}"
+    comment: "{{ item.comment }}"
+    proto: "{{ item.proto }}"
+    port: "{{ item.port | default(omit) }}"
+  loop: "{{ firewall_config_rules.incoming }}"
+
+- name: "UFW | add outgoing rules"
+  community.general.ufw:
+    rule: "{{ item.rule }}"
+    direction: "out"
+    to_ip: "{{ item.to_ip | default(omit) }}"
+    to_port: "{{ item.to_port | default(omit) }}"
+    comment: "{{ item.comment }}"
+    proto: "{{ item.proto }}"
+    port: "{{ item.port | default(omit) }}"
+  loop: "{{ firewall_config_rules.outgoing }}"
+
+- name: "UFW | Enable"
+  community.general.ufw:
+    state: enabled
