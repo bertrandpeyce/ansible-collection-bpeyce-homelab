@@ -1,2 +1,6 @@
 ---
 # tasks file for gitlab_runner
+#
+- name: Ubuntu Install
+  ansible.builtin.import_tasks: ubuntu.yml
+  when: ansible_facts["distribution"] == "Ubuntu"

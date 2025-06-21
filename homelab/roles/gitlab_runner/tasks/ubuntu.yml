@@ -1,0 +1,8 @@
+- name: Update apt
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Create working temporary directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: working_dir
