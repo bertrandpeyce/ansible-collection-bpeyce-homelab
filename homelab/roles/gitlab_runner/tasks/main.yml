@@ -4,3 +4,28 @@
 - name: Ubuntu Install
   ansible.builtin.import_tasks: ubuntu.yml
   when: ansible_facts["distribution"] == "Ubuntu"
+
+- name: Check Register Variables
+  ansible.builtin.assert:
+    that:
+      - "{{ gitlab_runner_associated_server_url }} != ''"
+      - "{{ gitlab_runner_token }} != ''"
+      - "{{ gitlab_runner_executor }} != ''"
+
+- name: Check if runner is already registered
+  ansible.builtin.command: gitlab-runner list
+  register: runner_list
+  changed_when: false
+  failed_when: false
+
+- name: Register runner
+  ansible.builtin.command:
+    cmd: >
+      gitlab-runner register
+      --non-interactive
+      --description "{{ gitlab_runner_description | default('Ansible managed runner') }}"
+      --url "{{ gitlab_runner_associated_server_url }}"
+      --token "{{ gitlab_runner_token }}"
+      --executor "{{ gitlab_runner_executor }} {{ gitlab_runner_executor_additional_arguments | default('') }}"
+  when: gitlab_runner_description | default('Ansible managed runner') not in runner_list.stdout
+  register: runner_registration_result
