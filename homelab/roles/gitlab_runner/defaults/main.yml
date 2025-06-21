@@ -1,0 +1,3 @@
+---
+# defaults file for gitlab_runner
+ubuntu_runner_install_script_url: "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh"
