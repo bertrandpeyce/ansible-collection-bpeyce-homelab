@@ -1,0 +1,36 @@
+---
+# vars file for firewall_config
+firewall_config_backend: "ufw"
+
+# By default we deny all outgoing et ingoing traffic
+firewall_config_rules:
+  incoming:
+    - rule: "allow"
+      proto: "tcp"
+      port: "22"
+      comment: "Allow incoming SSH connection from all sources"
+  outgoing:
+    - rule: "allow"
+      proto: "tcp"
+      port: "22"
+      comment: "Allow outgoing SSH connection to all destinations"
+    - rule: "allow"
+      port: "53"
+      proto: "udp"
+      comment: "Allow DNS queries"
+    - rule: "allow"
+      port: "53"
+      proto: "tcp"
+      comment: "Allow DNS queries over TCP"
+    - rule: "allow"
+      port: "123"
+      proto: "udp"
+      comment: "Allow NTP time sync"
+    - rule: "allow"
+      port: "80"
+      proto: "tcp"
+      comment: "Allow HTTP for updates"
+    - rule: "allow"
+      port: "443"
+      proto: "tcp"
+      comment: "Allow HTTPS for updates"

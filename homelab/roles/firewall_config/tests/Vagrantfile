@@ -1,0 +1,21 @@
+# We create a Vagrantfile to test the role 
+# The VM is a ubuntu 20.04 server on KVM with libvirt 
+
+Vagrant.configure("2") do |config| 
+
+config.vm.box = "generic/ubuntu2204" # Ubuntu 20.04 LTS
+
+config.vm.define "firewall_config" do |firewall_config|
+  firewall_config.vm.network "public_network", dev: "enp0s31f6"
+  firewall_config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = 'kvm'
+    libvirt.cpu_mode = 'host-passthrough'
+    libvirt.memory = 2048
+    libvirt.cpus = 2
+    libvirt.storage :file, size: '5G'
+  firewall_config.vm.provision :ansible do |ansible| 
+    ansible.playbook = "test.yml"
+  end 
+  end
+end
+end
