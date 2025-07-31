@@ -1,0 +1,6 @@
+[submodule "homelab/roles/nodejs"]
+	path = homelab/roles/nodejs
+	url = https://github.com/geerlingguy/ansible-role-nodejs
+[submodule "homelab/roles/go"]
+	path = homelab/roles/go
+	url = https://github.com/geerlingguy/ansible-role-go
