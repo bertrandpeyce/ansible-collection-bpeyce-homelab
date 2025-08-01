@@ -4,3 +4,6 @@
 [submodule "homelab/roles/go"]
 	path = homelab/roles/go
 	url = https://github.com/geerlingguy/ansible-role-go
+[submodule "homelab/roles/bind9"]
+	path = homelab/roles/bind9
+	url = https://github.com/systemli/ansible-role-bind9
