@@ -1,2 +1,9 @@
 ---
 # tasks file for stepca_server
+- name: Update
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Upgrade
+  ansible.builtin.apt:
+    upgrade: "yes"
