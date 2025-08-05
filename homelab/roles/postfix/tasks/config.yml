@@ -1,0 +1,7 @@
+- name: Config postfix main.cf file
+  ansible.builtin.lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: "^#?\\s*{{ item.name }}\\s*=.*$"
+    line: "{{ item.name }} = {{ item.value }}"
+    state: present
+  loop: "{{ postfix_config }}"

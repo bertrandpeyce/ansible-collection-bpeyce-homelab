@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role: bpeyce.homelab.postfix
+      vars:
+        postfix_relay:
+          enable: true
+          username: "marceline"
+          password: "toto123!"

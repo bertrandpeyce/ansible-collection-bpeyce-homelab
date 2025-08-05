@@ -1,0 +1,17 @@
+---
+- name: Configure Postfix on Ubuntu
+  import_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Configure Postfix
+  ansible.builtin.import_tasks: config.yml
+
+- name: Configure relay server
+  ansible.builtin.import_tasks: relay.yml
+  when: postfix_relay.enable
+
+- name: Restart postfix
+  ansible.builtin.service:
+    name: postfix
+    state: restarted
+    enabled: "yes"

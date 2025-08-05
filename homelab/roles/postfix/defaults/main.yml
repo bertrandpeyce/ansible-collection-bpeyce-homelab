@@ -1,0 +1,14 @@
+---
+# defaults file for postfix
+postfix_update_cache: "yes"
+postfix_ubuntu_packages:
+  - postfix
+  - mailutils
+  - libsasl2-2
+  - ca-certificates
+  - libsasl2-modules
+postfix_debconf:
+  - question: postfix/main_mailer_type
+    value: "Internet Site"
+  - question: postfix/mailname
+    value: "mydomain.com"

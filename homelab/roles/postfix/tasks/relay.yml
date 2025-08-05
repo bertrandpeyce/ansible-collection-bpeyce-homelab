@@ -1,0 +1,30 @@
+- name: Set fact postfix_relayhost
+  ansible.builtin.set_fact:
+    postfix_relayhost: "{{ postfix_config
+      | selectattr('name', 'equalto', 'relayhost')
+      | map(attribute='value')
+      | first
+      }}"
+
+- name: Set fact postfix_sasl_password_path
+  ansible.builtin.set_fact:
+    postfix_sasl_password_path: "{{ postfix_config
+      | selectattr('name', 'equalto', 'smtp_sasl_password_maps')
+      | map(attribute='value')
+      | first
+      | regex_replace('^(?:[^:]+:)?(.*)$', '\\1')
+      }}"
+
+- name: Create postfix sasl password file
+  ansible.builtin.copy:
+    dest: "{{ postfix_sasl_password_path }}"
+    content: "{{ postfix_relayhost }} {{ postfix_relay.username }}:{{ postfix_relay.password }}"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Generate Postfix password db
+  ansible.builtin.command:
+    cmd: postmap "{{ postfix_sasl_password_path }}"
+  args:
+    creates: "{{ postfix_sasl_password_path }}.db"

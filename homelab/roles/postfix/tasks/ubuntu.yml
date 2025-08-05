@@ -1,0 +1,22 @@
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: "{{ postfix_update_cache }}"
+
+- name: Configure Postfix debian package
+  ansible.builtin.debconf:
+    name: postfix
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype | default('string') }}"
+  loop: "{{ postfix_debconf }}"
+
+- name: Install postfix packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop: "{{ postfix_ubuntu_packages }}"
+
+- name: Restart Postfix service
+  ansible.builtin.service:
+    name: postfix
+    state: restarted
+    enabled: "yes"

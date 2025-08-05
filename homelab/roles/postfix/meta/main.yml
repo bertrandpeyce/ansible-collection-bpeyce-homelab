@@ -1,0 +1,10 @@
+galaxy_info:
+  author: Bertrand Peycé
+  description: Install and configure Postfix SMTP server
+  company: Home
+  license: MIT
+  min_ansible_version: "2.1"
+  galaxy_tags:
+    - smtp
+    - postfix
+dependencies: []

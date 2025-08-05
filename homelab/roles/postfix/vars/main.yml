@@ -1,0 +1,24 @@
+---
+postfix_relay:
+  enable: true
+  username: ""
+  password: ""
+postfix_config:
+  - name: relayhost
+    value: "[smtp.gmail.com]:587"
+  - name: smtp_sasl_auth_enable
+    value: "yes"
+  - name: smtp_sasl_security_options
+    value: noanonymous
+  - name: smtp_sasl_password_maps
+    value: "hash:/etc/postfix/sasl_passwd"
+  - name: smtp_tls_security_level
+    value: encrypt
+  - name: smtp_tls_CAfile
+    value: /etc/ssl/certs/ca-certificates.crt
+  - name: myhostname
+    value: postfix
+  - name: myorigin
+    value: mydomain.local
+  - name: mydestination
+    value: "$myhostname, localhost, mydomain.local"

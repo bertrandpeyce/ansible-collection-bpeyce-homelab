@@ -1,0 +1,21 @@
+
+#ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure("2") do |config|
+  config.vm.define "postfix" do |postfix|
+    postfix.vm.box = "generic/ubuntu2204"
+    postfix.vm.hostname = "postfix"
+    postfix.vm.network "public_network", dev: 'enp0s31f6'
+
+    postfix.vm.provider :libvirt do |libvirt|
+      libvirt.cpus = 2
+      libvirt.memory = 2048
+      libvirt.driver = "kvm"
+    end
+
+    postfix.vm.provision "ansible" do |ansible|
+      ansible.playbook = "test.yml"
+      ansible.compatibility_mode = "2.0"
+    end
+  end 
+end
