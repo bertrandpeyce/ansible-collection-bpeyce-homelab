@@ -1,5 +1,9 @@
 ---
-- hosts: localhost
+- hosts: all
   become: True
   roles:
-    - bpeyce.homelab.kvm_host
+    - role: bpeyce.homelab.kvm_host
+      vars:
+        kvm_host_update_packages: true
+        kvm_host_libvirt_users:
+          - vagrant

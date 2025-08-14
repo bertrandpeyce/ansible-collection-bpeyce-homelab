@@ -1,0 +1,19 @@
+
+Vagrant.configure("2") do |config|
+  config.vm.define "kvmhost" do |postfix|
+    postfix.vm.box = "generic/ubuntu2204"
+    postfix.vm.hostname = "kvmhost"
+    postfix.vm.network "private_network", type: "dhcp"
+
+    postfix.vm.provider :libvirt do |libvirt|
+      libvirt.cpus = 2
+      libvirt.memory = 2048
+      libvirt.driver = "kvm"
+    end
+
+    postfix.vm.provision "ansible" do |ansible|
+      ansible.playbook = "test.yml"
+      ansible.compatibility_mode = "2.0"
+    end
+  end 
+end

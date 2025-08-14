@@ -1,2 +1,4 @@
 ---
 # vars file for kvm_host
+kvm_host_libvirt_users: []
+kvm_host_update_packages: false

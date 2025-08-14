@@ -1,4 +1,14 @@
 # install apt package
+- name: "apt update"
+  ansible.builtin.apt:
+    update_cache: true
+  when: kvm_host_update_packages
+
+- name: "apt upgrade"
+  ansible.builtin.apt:
+    upgrade: "yes"
+  when: kvm_host_update_packages
+
 - name: Install necessary packages
   apt:
     name:

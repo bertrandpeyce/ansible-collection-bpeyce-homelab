@@ -1,4 +1,3 @@
-
 ---
 # Main tasks for the kvm_host role
 
@@ -13,9 +12,21 @@
     name: libvirt
     state: present
 
+- name: Create "kvm" group
+  ansible.builtin.group:
+    name: kvm
+    state: present
+
 - name: Add "libvirt" group to users in "kvm_host_libvirt_users" list
   ansible.builtin.user:
     name: "{{ item }}"
     groups: libvirt
+    append: true
+  loop: "{{ kvm_host_libvirt_users }}"
+
+- name: Add "kvm" group to users in "kvm_host_libvirt_users" list
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: kvm
     append: true
   loop: "{{ kvm_host_libvirt_users }}"
