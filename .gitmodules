@@ -1,9 +1,9 @@
-[submodule "homelab/roles/nodejs"]
-	path = homelab/roles/nodejs
+[submodule "roles/nodejs"]
+	path = roles/nodejs
 	url = https://github.com/geerlingguy/ansible-role-nodejs
-[submodule "homelab/roles/go"]
-	path = homelab/roles/go
+[submodule "roles/go"]
+	path = roles/go
 	url = https://github.com/geerlingguy/ansible-role-go
-[submodule "homelab/roles/bind9"]
-	path = homelab/roles/bind9
+[submodule "roles/bind9"]
+	path = roles/bind9
 	url = https://github.com/systemli/ansible-role-bind9
