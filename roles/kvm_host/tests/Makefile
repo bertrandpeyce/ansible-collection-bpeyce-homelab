@@ -15,4 +15,4 @@ ssh-config:
 	vagrant ssh-config > .vagrant_ssh_config
 
 test: 
-	pytest --connection=ssh --ssh-config=.vagrant_ssh_config --hosts=postfix test.py
+	pytest --connection=ssh --ssh-config=.vagrant_ssh_config --hosts=kvmhost test.py

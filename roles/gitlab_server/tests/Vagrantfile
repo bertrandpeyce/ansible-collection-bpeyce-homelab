@@ -6,17 +6,18 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/ubuntu2204"
 
   config.vm.define "gitlab_server" do |gitlab_server|
-    gitlab_server.vm.network "public_network", dev: "enp0s31f6"
+    gitlab_server.vm.network "private_network", type: 'dhcp'
+    gitlab_server.vm.hostname = "gitlab"
+
     gitlab_server.vm.provider :libvirt do |libvirt| 
       libvirt.driver = 'kvm'
       libvirt.cpu_mode = 'host-passthrough'
       libvirt.memory =  4096
       libvirt.cpus = 4
     end
-    # doesnt prompt for password...
-    #gitlab_server.vm.provision :ansible do |ansible|
-    #  ansible.playbook = "test.yml"
-    #  ask_vault_pass = true
-    #end
+    gitlab_server.vm.provision "ansible" do |ansible|
+      ansible.playbook = "test.yml"
+      ansible.compatibility_mode = "2.0"
+    end
   end
 end

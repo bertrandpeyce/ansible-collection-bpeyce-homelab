@@ -1,11 +1,9 @@
 
-#ENV['VAGRANT_NO_PARALLEL'] = 'yes'
-
 Vagrant.configure("2") do |config|
-  config.vm.define "postfix" do |postfix|
+  config.vm.define "kvmhost" do |postfix|
     postfix.vm.box = "generic/ubuntu2204"
-    postfix.vm.hostname = "postfix"
-    postfix.vm.network "private_network", type: 'dhcp'
+    postfix.vm.hostname = "kvmhost"
+    postfix.vm.network "private_network", type: "dhcp"
 
     postfix.vm.provider :libvirt do |libvirt|
       libvirt.cpus = 2
