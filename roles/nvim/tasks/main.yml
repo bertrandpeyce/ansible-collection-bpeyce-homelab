@@ -1,0 +1,62 @@
+---
+# tasks file for nvim
+- name: backup
+  ansible.builtin.copy:
+    src: "{{ nvim_dest }}"
+    dest: "{{ nvim_backup_dest }}"
+  tags:
+    - starter
+
+- name: remove current nvim config
+  ansible.builtin.file:
+    path: "{{ nvim_dest }}"
+    state: absent
+  tags:
+    - starter
+
+- name: clone nvim starter project
+  ansible.builtin.git:
+    repo: https://github.com/LazyVim/starter
+    dest: "{{ nvim_dest }}"
+  tags:
+    - starter
+
+- name: remove .git directory
+  ansible.builtin.file:
+    path: "{{ nvim_dest }}/.git"
+    state: absent
+  tags:
+    - starter
+
+- name: install pip dependencie
+  ansible.builtin.pip:
+    name: ast-grep-cli
+    virtualenv: "{{ nvim_pyhton_virtualenv }}"
+
+- name: install apt dependencie
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ripgrep
+    - nodejs
+    - npm
+  become: true
+
+- name: Makedir font
+  ansible.builtin.file:
+    path: "{{ nvim_nerdfont_dest }}"
+    state: directory
+
+- name: Download and extract nerdfont
+  ansible.builtin.unarchive:
+    src: "{{ nvim_nerdfont_url }}"
+    dest: "{{ nvim_nerdfont_dest }}"
+    remote_src: yes
+ 
+- name: update cache
+  ansible.builtin.command:
+    cmd: "fc-cache {{ nvim_nerdfont_dest }}"
+    creates: "{{ nvim_nerdfont_dest }}/cache_updated.lock"
+
+

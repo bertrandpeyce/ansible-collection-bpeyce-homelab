@@ -1,0 +1,6 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for latex
+- name: Install latex on ubuntu
+  ansible.builtin.include_tasks: ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"

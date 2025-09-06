@@ -1,0 +1,18 @@
+- name: Install complete latex package
+  ansible.builtin.apt:
+    name: texlive-full 
+    state: present
+  when: latex_install_method == "pkg" and latex_pkg_version == "full"
+
+- name: Install minimal latex package
+  ansible.builtin.apt:
+    name: texlive
+    state: present
+  when: latex_install_method == "pkg" and latex_pkg_version == "min"
+
+- name: Install supplementary latex package
+  ansible.builtin.apt:
+    pkg:
+      - "{{ item }}"
+  with_items: "{{ latex_supp_pkg }}"
+

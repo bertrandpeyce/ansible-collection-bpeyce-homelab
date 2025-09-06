@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+- hosts: localhost
+  connection: local 
+  become: true
+  roles:
+    - role: bpeyce.homelab.latex
+      vars: 
+        latex_install_method: "pkg"
+        latex_pkg_version: "full"
+        latex_supp_pkg: []
+      
