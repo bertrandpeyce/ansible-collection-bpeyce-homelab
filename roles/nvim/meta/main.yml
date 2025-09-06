@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+galaxy_info:
+  author: Bertrand Peyce
+  description: Install and configure nvim 
+  company: UwU
+  license: MIT
+  min_ansible_version: 2.1
+  galaxy_tags: []
+dependencies:
+  - bpeyce.homelab.go

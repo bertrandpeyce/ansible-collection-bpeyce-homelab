@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - role: bpeyce.homelab.nvim
+      vars:
+        nvim_pyhton_virtualenv: ~/.venv/ansible
+        nvim_backup_dest: ~/.config/nvim.bak/
+        nvim_dest: ~/.config/nvim/
+        nvim_nerdfont_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
+        nvim_nerdfont_dest: ~/.local/share/fonts/
